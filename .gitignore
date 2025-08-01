@@ -4,4 +4,4 @@
 *_tracks.csv
 
 local/
-executables/
+dist/
