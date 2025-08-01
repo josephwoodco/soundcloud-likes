@@ -47,6 +47,7 @@ jobs:
         run: pkg . -t ${{ matrix.target }} --out-path dist
 
       - name: Create quickstart
+        shell: bash
         run: |
           mkdir -p upload
           cat > upload/README_quickstart.txt << 'EOF'
