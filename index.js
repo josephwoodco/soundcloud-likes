@@ -1,6 +1,13 @@
 const fs = require('fs');
+const path = require('path');
 
 const HAR_FILE_PATH = process.argv[2] || 'soundcloud.com.har';
+
+function relativeToAbsolutePath(relativePath) {
+  const baseDir = process.pkg ? path.dirname(process.execPath) : __dirname;
+  
+  return path.join(baseDir, relativePath);
+}
 
 function formatDate(dateString) {
   const date = new Date(dateString);
@@ -33,7 +40,7 @@ function convertToCSV(tracks) {
 
   const CSV_FILE_PATH = `${HAR_FILE_PATH}_tracks.csv`;
 
-  fs.writeFile(CSV_FILE_PATH, csvContent, 'utf8', (writeErr) => {
+  fs.writeFile(relativeToAbsolutePath(CSV_FILE_PATH), csvContent, 'utf8', (writeErr) => {
     if (writeErr) {
       console.error('Error writing the CSV file:', writeErr);
     } else {
@@ -59,7 +66,7 @@ function isBase64(str) {
 }
 
 function processSoundCloudData() {
-  fs.readFile(HAR_FILE_PATH, 'utf8', (err, data) => {
+  fs.readFile(relativeToAbsolutePath(HAR_FILE_PATH), 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading the file:', err);
       return;
@@ -102,7 +109,7 @@ function processSoundCloudData() {
     // Convert the tracks array to JSON and remove unusual line terminators
     const jsonString = JSON.stringify(tracks, null, 2).replace(/\u2028|\u2029/g, '');
     
-    fs.writeFile(TRACKS_FILE_PATH, jsonString, 'utf8', (writeErr) => {
+    fs.writeFile(relativeToAbsolutePath(TRACKS_FILE_PATH), jsonString, 'utf8', (writeErr) => {
       if (writeErr) {
         console.error('Error writing the file:', writeErr);
       } else {

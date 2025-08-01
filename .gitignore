@@ -2,3 +2,6 @@
 
 *_tracks.json
 *_tracks.csv
+
+local/
+executables/
