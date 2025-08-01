@@ -62,7 +62,16 @@ jobs:
           Windows: If SmartScreen warns, click "More info" → "Run anyway".
           EOF
 
-      - name: Package artifact
+      - name: Package artifact (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Copy-Item dist\${{ matrix.out_name }} upload\
+          Set-Location upload
+          Compress-Archive -Path ${{ matrix.out_name }},README_quickstart.txt -DestinationPath soundcloud-likes-${{ github.ref_name }}-${{ matrix.asset_suffix }}.zip
+
+      - name: Package artifact (Non-Windows)
+        if: runner.os != 'Windows'
         run: |
           cp dist/${{ matrix.out_name }} upload/
           cd upload
