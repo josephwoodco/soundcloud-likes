@@ -1,0 +1,75 @@
+name: build-and-release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    name: Build binaries
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: node18-linux-x64
+            out_name: soundcloud-likes
+            asset_suffix: linux-x64
+          - os: macos-latest
+            target: node18-macos-x64
+            out_name: soundcloud-likes
+            asset_suffix: macos-x64
+          - os: macos-latest
+            target: node18-macos-arm64
+            out_name: soundcloud-likes
+            asset_suffix: macos-arm64
+          - os: windows-latest
+            target: node18-win-x64
+            out_name: soundcloud-likes.exe
+            asset_suffix: windows-x64
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install pkg
+        run: npm i -g pkg
+
+      - name: Install (no deps)
+        run: npm i
+
+      - name: Build with pkg
+        run: pkg . -t ${{ matrix.target }} --out-path dist
+
+      - name: Create quickstart
+        run: |
+          mkdir -p upload
+          cat > upload/README_quickstart.txt << 'EOF'
+          Quick Start
+          ===========
+          1) Put your SoundCloud HAR file in the same folder as the app and name it: soundcloud.com.har
+             (Advanced) Or run the app from a terminal and pass the HAR file path as the first argument.
+          2) Double-click the app to run it.
+          3) The folder will be populated with CSV and JSON outputs.
+
+          macOS: If you see a security warning, right-click the app → Open → Open.
+          Windows: If SmartScreen warns, click "More info" → "Run anyway".
+          EOF
+
+      - name: Package artifact
+        run: |
+          cp dist/${{ matrix.out_name }} upload/
+          cd upload
+          zip -r soundcloud-likes-${{ github.ref_name }}-${{ matrix.asset_suffix }}.zip ${{ matrix.out_name }} README_quickstart.txt
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: upload/*.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
