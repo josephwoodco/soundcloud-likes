@@ -5,7 +5,7 @@
   "main": "index.js",
   "bin": "index.js",
   "author": "Joe Wood",
-  "license": "ISC",
+  "license": "MIT",
   "pkg": {
     "targets": [
       "node18-linux-x64",

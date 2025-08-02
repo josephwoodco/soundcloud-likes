@@ -6,12 +6,12 @@ Easily convert your SoundCloud "Likes" list into **CSV** and **JSON** files usin
 
 ## ⬇️ Download
 
-| Platform                  | File (latest release)                                                               |
-|---------------------------|--------------------------------------------------------------------------------------|
-| **Windows (x64)**         | [soundcloud-likes-windows-x64.zip](../../releases/latest/download/soundcloud-likes-windows-x64.zip) |
-| **macOS (Apple Silicon)** | [soundcloud-likes-macos-arm64.zip](../../releases/latest/download/soundcloud-likes-macos-arm64.zip) |
-| **macOS (Intel)**         | [soundcloud-likes-macos-x64.zip](../../releases/latest/download/soundcloud-likes-macos-x64.zip) |
-| **Linux (x64)**           | [soundcloud-likes-linux-x64.zip](../../releases/latest/download/soundcloud-likes-linux-x64.zip) |
+| Platform                  | File (latest release)                                                                                             |
+|---------------------------|-------------------------------------------------------------------------------------------------------------------|
+| **Windows (x64)**         | [soundcloud-likes-v1.0.0-windows-x64.zip](../../releases/latest/download/soundcloud-likes-v1.0.0-windows-x64.zip) |
+| **macOS (Apple Silicon)** | [soundcloud-likes-v1.0.0-macos-arm64.zip](../../releases/latest/download/soundcloud-likes-v1.0.0-macos-arm64.zip) |
+| **macOS (Intel)**         | [soundcloud-likes-v1.0.0-macos-x64.zip](../../releases/latest/download/soundcloud-likes-v1.0.0-macos-x64.zip)     |
+| **Linux (x64)**           | [soundcloud-likes-v1.0.0-linux-x64.zip](../../releases/latest/download/soundcloud-likes-v1.0.0-linux-x64.zip)     |
 
 1. Download the version for your OS.
 2. Unzip it.
